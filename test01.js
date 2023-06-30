@@ -1,6 +1,6 @@
 const { attendanceRecord } = require('../models');
 const moment = require('moment');
-
+// https://www.freepnglogos.com/uploads/twitter-logo-png/twitter-bird-symbols-png-logo-0.png
 const punchOut = async (req, res, next) => {
   const { userId } = req.body;
   const today = moment().format('YYYY-MM-DD');

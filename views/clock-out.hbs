@@ -1,0 +1,19 @@
+<div class="registration-form">
+
+  <form id="punchOutForm" action="/punchout?_method=PUT" method="POST">
+    <div class="form-icon">
+      <span><i class="fa-solid fa-user"></i></span>
+    </div>
+    {{> clock-in-tabs}}
+    <div class="form-group">
+      <input type="time" class="form-control item" id="punchInTime" name="punchInTime" placeholder="下班時間">
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-block create-account">下班</button>
+    </div>
+  </form>
+</div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+<script src="assets/js/script.js"></script>

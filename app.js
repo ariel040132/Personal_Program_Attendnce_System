@@ -12,8 +12,8 @@ const flash = require("connect-flash");
 const app = express();
 app.engine(".hbs", exphbs({ defaultLayout: "main", extname: '.hbs' }));
 app.set("view engine", ".hbs");
-app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 // app.use(
 //   session({

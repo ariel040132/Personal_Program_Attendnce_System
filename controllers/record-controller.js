@@ -3,7 +3,7 @@ const moment = require('moment');
 
 const recordController = {
   getHomePage: (req, res, next) => {
-    res.render('index')
+    res.render('clock-in')
   },
   punchIn: (req, res, next) => {
     const { userId, punchInTime, date, workTitle, workDetails } = req.body;
@@ -21,6 +21,9 @@ const recordController = {
     return res.status(201).json(record);
     })
     .catch(err => next(err));
+  },
+  getHome2Page: (req, res, next) => {
+    res.render('clock-out')
   },
   punchOut: (req, res, next) => {
     const { userId } = req.body;

@@ -1,0 +1,33 @@
+<div class="registration-form">
+  <form id="punchInForm" action="/punchin" method="POST">
+    <div class="form-icon">
+      <span><i class="fa-solid fa-user"></i></span>
+    </div>
+    {{> clock-in-tabs}}
+
+    <div class="form-group">
+      <input type="time" class="form-control item" id="punchInTime" name="punchInTime" placeholder="上班時間">
+    </div>
+    <div class="form-group">
+      <input type="date" class="form-control item" id="date" name="date" placeholder="date">
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control item" id="workTitle" name="workTitle" placeholder="work title"
+        maxlength="15">
+    </div>
+    {{!-- <div class="form-group">
+      <input type="text" class="form-control item" id="workDetails" name="workDetails" placeholder="work details">
+    </div> --}}
+    <div class="input-group">
+      <span class="input-group-text">Work Details</span>
+      <textarea class="form-control" aria-label="With textarea" id="workDetails" name="workDetails"></textarea>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-block create-account">上班</button>
+    </div>
+  </form>
+</div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+<script src="assets/js/script.js"></script>
