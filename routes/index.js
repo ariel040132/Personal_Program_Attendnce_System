@@ -1,10 +1,13 @@
 const express = require("express");
 const router = express.Router();
+const recordController = require('../controllers/record-controller')
+const admin = require('../routes/modules/admin')
 // const { authenticator } = require("../middleware/auth");
 
-router.get('/', (req, res) => {
-  res.render('index'); // 渲染名為 "index" 的視圖模板
-});
+router.use('/admin', admin)
 
+router.post('/punchin', recordController.punchIn)
+router.put('/punchout', recordController.punchOut)
+router.get('/', recordController.getHomePage)
 
 module.exports = router;

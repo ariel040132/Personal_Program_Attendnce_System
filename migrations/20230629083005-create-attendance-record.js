@@ -9,6 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       user_id: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       punch_in_time: {
@@ -27,7 +28,8 @@ module.exports = {
         type: Sequelize.TEXT
       },
       is_attendance: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       },
       created_at: {
         allowNull: false,

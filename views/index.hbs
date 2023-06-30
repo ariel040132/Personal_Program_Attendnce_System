@@ -1,38 +1,32 @@
-<div class="container">
-  <h1 class="mt-5">打卡首頁</h1>
-  <form action="/punchIn" method="POST">
-    <div class="mb-3">
-      <label for="punchInTime" class="form-label">上班打卡時間</label>
-      <input type="time" class="form-control" id="punchInTime" name="punch_in_time" required>
+<div>
+  <form id="punchInForm" action="/punchin" method="POST">
+    <div class="mb-4 text-center">
+      <h1 class="h3 font-weight-normal mb-3">Clock-In</h1>
     </div>
-    <div class="mb-3">
-      <label for="date" class="form-label">日期</label>
-      <input type="date" class="form-control" id="date" name="date" required>
-    </div>
-    <div class="mb-3">
-      <label for="workTitle" class="form-label">工作標題</label>
-      <input type="text" class="form-control" id="workTitle" name="work_title" required>
-    </div>
-    <div class="mb-3">
-      <label for="workDetails" class="form-label">工作詳細內容</label>
-      <textarea class="form-control" id="workDetails" name="work_details"></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">上班打卡</button>
+    <label for="userId">User ID:</label>
+    <input type="text" id="userId" name="userId" required>
+    <br>
+    <label for="punchInTime">Punch In Time:</label>
+    <input type="time" id="punchInTime" name="punchInTime" required>
+    <br>
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="date" required>
+    <br>
+    <label for="workTitle">Work Title:</label>
+    <input type="text" id="workTitle" name="workTitle" required>
+    <br>
+    <label for="workDetails">Work Details:</label>
+    <textarea id="workDetails" name="workDetails" required></textarea>
+    <br>
+    <button type="submit">上班</button>
   </form>
+</div>
 
-  <form action="/punchOut" method="POST">
-    <div class="mb-3">
-      <label for="punchOutTime" class="form-label">下班打卡時間</label>
-      <input type="time" class="form-control" id="punchOutTime" name="punch_out_time" required>
-    </div>
-    <div class="mb-3">
-      <label for="dateOut" class="form-label">日期</label>
-      <input type="date" class="form-control" id="dateOut" name="date" required>
-    </div>
-    <div class="mb-3">
-      <label for="workHours" class="form-label">上班時數</label>
-      <input type="text" class="form-control" id="workHours" name="work_hours" required>
-    </div>
-    <button type="submit" class="btn btn-primary">下班打卡</button>
+<div>
+  <form id="punchOutForm" action="/punchout?_method=PUT" method="POST">
+    <label for="userId">User ID:</label>
+    <input type="text" id="userId" name="userId" required>
+    <br>
+    <button type="submit">下班</button>
   </form>
 </div>

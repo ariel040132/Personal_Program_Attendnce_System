@@ -1,32 +1,51 @@
-// 引入相關套件和模型定義
-const express = require('express');
-const router = express.Router();
-const moment = require('moment'); // 引入日期時間處理套件
-const AttendanceRecord = require('../models/attendanceRecord');
+const { attendanceRecord } = require('../models');
+const moment = require('moment');
 
-// POST /punchIn 路由處理
-router.post('/punchIn', async (req, res) => {
+const punchOut = async (req, res, next) => {
+  const { userId } = req.body;
+  const today = moment().format('YYYY-MM-DD');
+
   try {
-    const { userId, punch_in_time, date, work_title, work_details } = req.body;
-
-    // 創建新的打卡紀錄
-    const attendanceRecord = new AttendanceRecord({
-      userId,
-      punch_in_time: moment(punch_in_time).format('HH:mm'), // 格式化上班打卡時間
-      date,
-      work_title,
-      work_details
+    // 查詢當日的上班卡紀錄
+    const record = await attendanceRecord.findOne({
+      where: {
+        userId,
+        date: today,
+      },
     });
 
-    // 儲存打卡紀錄
-    await attendanceRecord.save();
+    if (!record) {
+      return res.status(404).json({ message: '當日未找到上班卡紀錄' });
+    }
 
-    res.json(attendanceRecord); // 回傳創建的打卡紀錄
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: '創建打卡紀錄失敗' });
+    // 檢查是否已經打過下班卡
+    if (record.punch_out_time) {
+      return res.status(400).json({ message: '已經打過下班卡' });
+    }
+
+    // 設定下班時間
+    record.punch_out_time = moment().format('HH:mm');
+
+    // 計算工作時數
+    const punchIn = moment(record.punch_in_time, 'HH:mm');
+    const punchOut = moment(record.punch_out_time, 'HH:mm');
+    const workHours = punchOut.diff(punchIn, 'hours');
+
+    record.work_hours = workHours;
+
+    // 設定出勤狀態
+    record.is_attendance = workHours >= 8 ? 1 : 0;
+
+    // 儲存更新後的出勤紀錄
+    await record.save();
+
+    return res.status(200).json(record);
+  } catch (err) {
+    return next(err);
   }
-});
+};
+
+module.exports = punchOut;
 
 
 // POST /punchOut 路由處理

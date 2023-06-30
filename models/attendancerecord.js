@@ -10,17 +10,18 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate (models) {
-      attendanceRecord.belongsTo(models.user, { foreignKey: 'userId' });
+      attendanceRecord.belongsTo(models.User, { foreignKey: 'userId' });
     }
   };
   attendanceRecord.init({
     userId: DataTypes.INTEGER,
     punchInTime: DataTypes.TIME,
     punchOutTime: DataTypes.TIME,
-    date: DataTypes.DATE,
+    date: DataTypes.DATEONLY,
     workTitle: DataTypes.STRING,
     workDetails: DataTypes.TEXT,
-    isAttendance: DataTypes.BOOLEAN
+    isAttendance: DataTypes.BOOLEAN,
+    workHours: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'attendanceRecord',
