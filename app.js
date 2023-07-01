@@ -8,13 +8,14 @@ const routes = require("./routes");
 const methodOverride = require("method-override");
 const session = require("express-session");
 const SESSION_SECRET = 'secret'
-const passport = require("./config/passport");
+const passport = require('./config/passport')
 const flash = require("connect-flash");
 const { getUser } = require('./helpers/auth-helpers')
 
 //*======app.setting======
 
 const app = express();
+
 app.engine(".hbs", exphbs({ defaultLayout: "main", extname: '.hbs' }));
 app.set("view engine", ".hbs");
 app.use(express.static("public"));
