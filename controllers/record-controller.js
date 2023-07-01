@@ -9,7 +9,8 @@ const recordController = {
     res.render('clock-out')
   },
   punchIn: (req, res, next) => {
-    const { userId, punchInTime, date, workTitle, workDetails } = req.body;
+    const userId = req.user.id
+    const { punchInTime, date, workTitle, workDetails } = req.body;
     if (!userId || !punchInTime || !date || !workTitle ) {
       return res.status(400).json({ message: '請填寫所有必填欄位' });
     }
@@ -26,7 +27,7 @@ const recordController = {
     .catch(err => next(err));
   },
   punchOut: (req, res, next) => {
-    const { userId } = req.body;
+    const userId = req.user.id
     const today = moment().format('YYYY-MM-DD');
     attendanceRecord.findOne({
         where: {

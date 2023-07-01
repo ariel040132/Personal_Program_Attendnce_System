@@ -13,13 +13,32 @@
 
 <body class="d-flex flex-column h-100 bg-light">
   <!-- Image and text -->
-  <nav class="navbar navbar-light justify-content-end" style="background-color:  #05a19e;">
-    <a class="navbar-brand" href="/homepage" style="color: aliceblue;">
-      {{!-- <img src="https://hackmd.io/_uploads/BycC7F3uh.png" width="30" height="30" class="d-inline-block align-top"
-        alt=""> --}}
-      Clock-In System
-    </a>
-  </nav>
+  <header>
+    <nav class="navbar navbar-light " style="background-color: #05a19e; 
+      margin: 0 auto; 
+      height: 50px; 
+      padding: 0 20px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between;">
+      <a class="navbar-brand" href="/homepage" style="color: aliceblue;">
+        Clock-In System
+      </a>
+
+      <span style="color: aliceblue;">
+        {{#if isAuthenticated}} Hi! {{user.name}}{{/if}}
+
+        <span style="padding-left: 5px;">
+          {{#if isAuthenticated}}
+          <a href="/logout" class="btn btn-outline-light">Logout</a>
+          {{else}}
+          <a href="/login" class="btn btn-outline-light">Login</a>
+          {{/if}}
+        </span>
+      </span>
+    </nav>
+  </header>
+
   <main class="flex-shrink-0" role="main">
     <div class="album container pt-5">
       <div class="pt-5">

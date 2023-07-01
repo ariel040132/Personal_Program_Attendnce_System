@@ -6,6 +6,10 @@ const userController = {
   logIn: (req, res, next) => {
     res.render('login')
   },
+  signIn: (req, res) => {
+    req.flash('success_messages', '成功登入！')
+    res.redirect('/punchin')
+  },
   getSignUp: (req, res, next) => {
     res.render('signup')
   },
