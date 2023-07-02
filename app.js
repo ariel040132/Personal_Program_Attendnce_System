@@ -11,12 +11,13 @@ const SESSION_SECRET = 'secret'
 const passport = require('./config/passport')
 const flash = require("connect-flash");
 const { getUser } = require('./helpers/auth-helpers')
+const handlebarsHelpers = require('./helpers/handlebars-helpers')
 
 //*======app.setting======
 
 const app = express();
 
-app.engine(".hbs", exphbs({ defaultLayout: "main", extname: '.hbs' }));
+app.engine(".hbs", exphbs({ defaultLayout: "main", extname: '.hbs', helpers: handlebarsHelpers }));
 app.set("view engine", ".hbs");
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));

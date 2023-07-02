@@ -8,7 +8,7 @@ const userController = {
   },
   signIn: (req, res) => {
     req.flash('success_messages', '成功登入！')
-    res.redirect('/punchin')
+    res.redirect('/')
   },
   getSignUp: (req, res, next) => {
     res.render('signup')
@@ -48,6 +48,20 @@ const userController = {
   logOut: (req, res, next) => {
     req.logout()
     res.redirect('/login')
+  },
+  getHomePage: (req, res, next) => {
+    const userId = req.user.id;
+    return attendanceRecord.findAll({
+      where: { userId }, 
+      include: [{ model: User, attributes: ['account', 'name', 'email'] }],
+      attributes: ['workTitle', 'date', 'punchInTime', 'punchOutTime', 'isAttendance', 'workHours'],
+    })
+      .then((records) => {
+        const recordsJSON = records.map(records => records.toJSON())
+        console.log(recordsJSON);
+        res.render('home', { records: recordsJSON });
+      })
+      .catch((err) => next(err));
   }
 }
 

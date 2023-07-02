@@ -140,7 +140,7 @@ body {
   padding: 10px 20px;
   font-size: 18px;
   font-weight: bold;
-  background-color: #0eafbb;
+  background-color: #655a7c;
   border: none;
   color: white;
   margin-top: 20px;
@@ -197,11 +197,9 @@ body {
 }
 
 /* ! admin後台頁面 */
-body {
-  margin-top: 20px;
-}
+
 .event-schedule-area .section-title .title-text {
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 
 .event-schedule-area .tab-area .nav-tabs {
@@ -217,7 +215,7 @@ body {
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  margin-top: 80px;
+  /* margin-top: 80px; */
 }
 
 .event-schedule-area .tab-area .nav-item {
@@ -234,7 +232,7 @@ body {
   text-transform: capitalize !important;
 }
 .event-schedule-area .tab-area .nav-item .nav-link.active {
-  color: #4125dd;
+  color: #0eafbb;
   background-color: transparent;
 }
 
@@ -285,7 +283,7 @@ body {
 }
 
 .event-schedule-area-two .section-title .title-text h2 {
-  margin: 0px 0 15px;
+  margin: 0px 0 5px;
 }
 
 .event-schedule-area-two ul.custom-tab {
@@ -324,7 +322,7 @@ body {
   transition: all 0.4s;
 }
 .event-schedule-area-two ul.custom-tab li a.active {
-  color: #4125dd;
+  color: #0eafbb;
 }
 
 .event-schedule-area-two .primary-btn {
@@ -336,9 +334,10 @@ body {
   box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
   margin-bottom: 0;
 }
+/* ! 頂部欄位的背景色  */
 .event-schedule-area-two .tab-content .table thead {
-  background-color: #007bff;
-  color: #fff;
+  background-color: #afc1d6;
+  color: #000000;
   font-size: 20px;
 }
 .event-schedule-area-two .tab-content .table thead tr th {
@@ -362,7 +361,7 @@ body {
 }
 .event-schedule-area-two .tab-content .table tbody tr th .event-date span {
   font-size: 50px;
-  line-height: 50px;
+  line-height: 30px;
   font-weight: normal;
 }
 .event-schedule-area-two .tab-content .table tbody tr td {
@@ -375,7 +374,7 @@ body {
 .event-schedule-area-two .tab-content .table tbody tr td .event-wrap h3 a {
   font-size: 20px;
   line-height: 20px;
-  color: #cf057c;
+  color: #0eafbb;
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
   transition: all 0.4s;
@@ -389,7 +388,7 @@ body {
   .event-wrap
   h3
   a:hover {
-  color: #4125dd;
+  color: #616234;
 }
 .event-schedule-area-two
   .tab-content
@@ -505,3 +504,5 @@ body {
   height: 100px;
   border-radius: 8px;
 }
+
+/* ! 按鈕 */

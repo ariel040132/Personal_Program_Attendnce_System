@@ -3,10 +3,8 @@ const router = express.Router();
 const recordController = require('../controllers/record-controller')
 const userController = require('../controllers/user-controller')
 const passport = require('../config/passport')
-const { authenticator } = require('../middleware/auth')
-
+const { authenticated } = require('../middleware/auth')
 const admin = require('../routes/modules/admin')
-// const { authenticator } = require("../middleware/auth");
 
 router.use('/admin', admin)
 
@@ -18,9 +16,13 @@ router.get('/register', userController.getSignUp)
 router.get('/logout', userController.logOut)
 
 //! 打卡功能
-router.post('/punchin', authenticator, recordController.punchIn)
-router.put('/punchout', authenticator, recordController.punchOut)
-router.get('/punchout', authenticator, recordController.getClockOutPage)
-router.get('/punchin', authenticator, recordController.getClockInPage)
+router.post('/punchin', authenticated, recordController.punchIn)
+router.put('/punchout', authenticated, recordController.punchOut)
+router.get('/punchout', authenticated, recordController.getClockOutPage)
+router.get('/punchin', authenticated, recordController.getClockInPage)
+
+
+//! 使用者首頁
+router.get('/', userController.getHomePage)
 
 module.exports = router;

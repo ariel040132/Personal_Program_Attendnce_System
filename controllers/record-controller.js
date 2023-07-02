@@ -22,7 +22,7 @@ const recordController = {
       workDetails,
     })
     .then((record) => {
-    return res.status(201).json(record);
+      return res.redirect('/');
     })
     .catch(err => next(err));
   },
@@ -55,7 +55,7 @@ const recordController = {
         record.isAttendance = workHours >= 8 ? 1 : 0;
         // 儲存更新後的出勤紀錄
         record.save().then(()=>{
-          return res.status(200).json(record);
+          return res.redirect('/');
         }).catch(err => next(err))
       }).catch(err => next(err))
   }
