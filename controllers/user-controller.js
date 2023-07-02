@@ -8,7 +8,7 @@ const userController = {
   },
   signIn: (req, res) => {
     req.flash('success_messages', '成功登入！')
-    res.redirect('/')
+    res.redirect('/user/home')
   },
   getSignUp: (req, res, next) => {
     res.render('signup')
@@ -58,7 +58,6 @@ const userController = {
     })
       .then((records) => {
         const recordsJSON = records.map(records => records.toJSON())
-        console.log(recordsJSON);
         res.render('home', { records: recordsJSON });
       })
       .catch((err) => next(err));

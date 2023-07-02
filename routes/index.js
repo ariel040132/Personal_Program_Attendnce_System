@@ -23,6 +23,8 @@ router.get('/punchin', authenticated, recordController.getClockInPage)
 
 
 //! 使用者首頁
-router.get('/', userController.getHomePage)
+router.get('/user/home', authenticated, userController.getHomePage)
+
+router.get('/', (req, res) => res.redirect('/user/home'))
 
 module.exports = router;

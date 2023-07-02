@@ -10,21 +10,35 @@ const recordController = {
   },
   punchIn: (req, res, next) => {
     const userId = req.user.id
-    const { punchInTime, date, workTitle, workDetails } = req.body;
-    if (!userId || !punchInTime || !date || !workTitle ) {
+    const punchInTime = moment().format('HH:mm:ss');
+    const today = moment().format('YYYY-MM-DD');
+    const { workTitle, workDetails } = req.body;
+    if (!userId || !punchInTime || !today || !workTitle ) {
       return res.status(400).json({ message: '請填寫所有必填欄位' });
     }
-    return attendanceRecord.create({
-      userId,
-      punchInTime,
-      date,
-      workTitle,
-      workDetails,
-    })
-    .then((record) => {
-      return res.redirect('/');
-    })
-    .catch(err => next(err));
+    return attendanceRecord.findOne({
+        where: {
+          userId,
+          date: today,
+        },
+      }).then((record) => {
+        if (record) {
+        return res.status(404).json({ message: '今天已經打過上班卡' });
+        }
+        return attendanceRecord.create({
+          userId,
+          punchInTime,
+          date: today,
+          workTitle,
+          workDetails,
+        }).then(() => {
+          res.redirect('/')
+        })
+        .catch(err => next(err));
+      })
+      .catch(err => next(err));
+    
+    
   },
   punchOut: (req, res, next) => {
     const userId = req.user.id
@@ -37,12 +51,12 @@ const recordController = {
       }).then((record) => {
         // 查詢當日的上班卡紀錄
         if (!record) {
-        return res.status(404).json({ message: '當日未找到上班卡紀錄' });
+        return res.status(404).json({ message: '今天尚未打過上班卡' });
         }
         // 檢查是否已經打過下班卡
-        if (record.punch_out_time) {
-          return res.status(400).json({ message: '已經打過下班卡' });
-        }
+        // if (record.punch_out_time) {
+        //   return res.status(400).json({ message: '今天已經打過下班卡' });
+        // }
         // 設定下班時間
          record.punchOutTime = moment().format('HH:mm:ss');
 
