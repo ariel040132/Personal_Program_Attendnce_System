@@ -23,7 +23,7 @@
                     <th scope="col">Employee</th>
                     <th class="text-center" scope="col">工作內容</th>
                     <th scope="col">出勤狀態</th>
-                    <th class="text-center" scope="col">編輯出勤</th>
+                    <th class="text-center" scope="col">修改出勤狀態</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -66,9 +66,19 @@
                       </div>
                     </td>
                     <td>
-                      <div class="primary-btn">
-                        <a class="btn btn-primary" href="#">Read More</a>
-                      </div>
+                      {{#if this.isAttendance}}
+                      <form action="/admin/attendances/{{this.id}}?_method=PATCH" method="POST"
+                        style="display: inline;">
+                        <input type="hidden" name="isAttendance" value="false" />
+                        <button type="submit" class="btn btn-link link-danger">Set as Absent</button>
+                      </form>
+                      {{else}}
+                      <form action="/admin/attendances/{{this.id}}?_method=PATCH" method="POST"
+                        style="display: inline;">
+                        <input type="hidden" name="isAttendance" value="true" />
+                        <button type="submit" class="btn btn-link link-danger">Set as Attendance</button>
+                      </form>
+                      {{/if}}
                     </td>
                   </tr>
                   {{/each}}

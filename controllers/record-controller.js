@@ -20,7 +20,7 @@ const recordController = {
           date: today,
         },
       }).then((record) => {
-        if (record) throw new Error('今天已經打過上班卡')
+        if (record) throw new Error('今天已經打過上班卡。')
         return attendanceRecord.create({
           userId,
           punchInTime,

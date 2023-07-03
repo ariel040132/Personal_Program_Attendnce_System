@@ -30,7 +30,7 @@ router.get('/user/setting', authenticated, userController.userSettingPage)
 //! 使用者首頁
 router.get('/user/home', authenticated, userController.getHomePage)
 
-router.get('/', (req, res) => res.redirect('/user/home'))
+router.get('/', (req, res, next) => res.redirect('/user/home'))
 router.use('/', generalErrorHandler)
 
 module.exports = router;
