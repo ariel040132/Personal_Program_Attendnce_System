@@ -4,6 +4,7 @@ const recordController = require('../controllers/record-controller')
 const userController = require('../controllers/user-controller')
 const passport = require('../config/passport')
 const { authenticated } = require('../middleware/auth')
+const { generalErrorHandler } = require('../middleware/error-handler')
 const admin = require('../routes/modules/admin')
 
 router.use('/admin', admin)
@@ -30,5 +31,6 @@ router.get('/user/setting', authenticated, userController.userSettingPage)
 router.get('/user/home', authenticated, userController.getHomePage)
 
 router.get('/', (req, res) => res.redirect('/user/home'))
+router.use('/', generalErrorHandler)
 
 module.exports = router;

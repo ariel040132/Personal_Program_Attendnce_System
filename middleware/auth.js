@@ -4,6 +4,7 @@ const authenticated = (req, res, next) => {
   if (ensureAuthenticated(req)) {
     return next()
   }
+  req.flash('warning_msg', '請先登入才能使用！')
   res.redirect('/login')
 }
 const authenticatedAdmin = (req, res, next) => {
@@ -12,6 +13,7 @@ const authenticatedAdmin = (req, res, next) => {
     if (getUser(req).role === 'admin') return next()
     res.redirect('/')
   } else {
+    req.flash('warning_msg', '請先登入才能使用！')
     res.redirect('/login')
   }
 }

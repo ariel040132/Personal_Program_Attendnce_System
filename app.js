@@ -36,6 +36,7 @@ app.use((req, res, next) => {
   res.locals.isAuthenticated = req.isAuthenticated();
   res.locals.user = getUser(req);
   res.locals.success_msg = req.flash("success_msg"); // 設定 success_msg 訊息
+  res.locals.error_msg = req.flash("error_msg");
   res.locals.warning_msg = req.flash("warning_msg"); // 設定 warning_msg 訊息
   next();
 });
