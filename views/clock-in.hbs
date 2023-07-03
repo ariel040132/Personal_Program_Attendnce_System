@@ -4,7 +4,7 @@
       <span><i class="fa-solid fa-clock"></i></span>
     </div>
     {{> clock-in-tabs}}
-
+    {{> show-now-time}}
     <div class="form-group pt-3">
       <input type="text" class="form-control item" id="workTitle" name="workTitle" placeholder="work title"
         maxlength="15">
@@ -14,7 +14,7 @@
       <textarea class="form-control" aria-label="With textarea" id="workDetails" name="workDetails"></textarea>
     </div>
     <div class="d-grid gap-2 col-4 mx-auto">
-      <button type="submit" class="btn btn-block create-account ">上班</button>
+      <button type="submit" class="btn btn-outline-success mt-3">上班</button>
     </div>
   </form>
 </div>

@@ -5,12 +5,11 @@
       <span><i class="fa-solid fa-house"></i></span>
     </div>
     {{> clock-in-tabs}}
+    {{!-- 時間顯示 start --}}
+    {{> show-now-time}}
+    {{!-- 時間顯示 end --}}
     <div class="d-grid gap-2 col-4 mx-auto">
-      <button type="submit" class="btn btn-block create-account ">下班</button>
+      <button type="submit" class="btn btn-outline-success mt-3">下班</button>
     </div>
   </form>
 </div>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
-<script src="assets/js/script.js"></script>

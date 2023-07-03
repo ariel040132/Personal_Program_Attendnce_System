@@ -20,7 +20,7 @@
                 <thead>
                   <tr>
                     <th class="text-center" scope="col">日期</th>
-                    <th scope="col">Employee</th>
+                    <th scope="col">員工</th>
                     <th class="text-center" scope="col">工作內容</th>
                     <th scope="col">出勤狀態</th>
                     <th class="text-center" scope="col">修改出勤狀態</th>
@@ -70,13 +70,13 @@
                       <form action="/admin/attendances/{{this.id}}?_method=PATCH" method="POST"
                         style="display: inline;">
                         <input type="hidden" name="isAttendance" value="false" />
-                        <button type="submit" class="btn btn-link link-danger">Set as Absent</button>
+                        <button type="submit" class="btn link-danger">Set as Absent</button>
                       </form>
                       {{else}}
                       <form action="/admin/attendances/{{this.id}}?_method=PATCH" method="POST"
                         style="display: inline;">
                         <input type="hidden" name="isAttendance" value="true" />
-                        <button type="submit" class="btn btn-link link-danger">Set as Attendance</button>
+                        <button type="submit" class="btn link-success">Set as Attendance</button>
                       </form>
                       {{/if}}
                     </td>
