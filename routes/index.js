@@ -12,15 +12,19 @@ router.use('/admin', admin)
 router.get('/login', userController.logIn)
 router.post('/login', passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }), userController.signIn)
 router.post('/register', userController.postSignUp)
-router.get('/register', userController.getSignUp)
+router.get('/register', userController.signUpPage)
 router.get('/logout', userController.logOut)
 
 //! 打卡功能
 router.post('/punchin', authenticated, recordController.punchIn)
 router.put('/punchout', authenticated, recordController.punchOut)
-router.get('/punchout', authenticated, recordController.getClockOutPage)
-router.get('/punchin', authenticated, recordController.getClockInPage)
+router.get('/punchout', authenticated, recordController.ClockOutPage)
+router.get('/punchin', authenticated, recordController.ClockInPage)
 
+//! 使用者設定
+router.put('/user/editPwd', authenticated, userController.editPwd)
+router.get('/user/editPwd', authenticated, userController.editPwdPage)
+router.get('/user/setting', authenticated, userController.userSettingPage)
 
 //! 使用者首頁
 router.get('/user/home', authenticated, userController.getHomePage)

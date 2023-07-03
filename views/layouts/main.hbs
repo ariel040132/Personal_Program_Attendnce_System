@@ -30,12 +30,18 @@
         <span class="nav-item d-inline-flex align-items-center">
           <span class="text-white nav-link">Hi, {{ user.account }}</span>
         </span>
+        {{#if isAuthenticated}}
+        <a href="/user/setting"><button class="btn btn-outline-light my-sm-0 my-2"><i class="fa-solid fa-gear"></i>
+          </button></a>
+        {{/if}}
         {{#if (eq user.role 'admin')}}
-        <a href="/admin/allrecords"><button class="btn btn-outline-light my-sm-0 my-2">Admin</button></a>
+        <a href="/admin/allrecords"><button class="btn btn-outline-light my-sm-0 my-2"><i
+              class="fa-solid fa-hammer"></i></button></a>
         {{/if}}
         {{#if isAuthenticated}}
         <span class="nav-item">
-          <a href="/logout"><button class="btn btn-outline-light my-sm-0 my-2">Logout</button></a>
+          <a href="/logout"><button class="btn btn-outline-light my-sm-0 my-2"><i
+                class="fa-solid fa-right-from-bracket"></i></button></a>
         </span>
         {{else}}
         <span class="nav-item">

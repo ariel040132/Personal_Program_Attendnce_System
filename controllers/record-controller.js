@@ -2,19 +2,19 @@ const { User, attendanceRecord } = require('../models')
 const moment = require('moment');
 
 const recordController = {
-  getClockInPage: (req, res, next) => {
+  ClockInPage: (req, res, next) => {
     res.render('clock-in')
   },
-  getClockOutPage: (req, res, next) => {
+  ClockOutPage: (req, res, next) => {
     res.render('clock-out')
   },
   punchIn: (req, res, next) => {
     const userId = req.user.id
     const punchInTime = moment().format('HH:mm:ss');
-    const today = moment().format('YYYY-MM-DD');
+    const today = moment().subtract(5, 'hours').startOf('day').format('YYYY-MM-DD');
     const { workTitle, workDetails } = req.body;
     if (!userId || !punchInTime || !today || !workTitle ) {
-      return res.status(400).json({ message: '請填寫所有必填欄位' });
+      return res.status(400).json({ message: '請填寫工作標頭' });
     }
     return attendanceRecord.findOne({
         where: {
@@ -36,9 +36,7 @@ const recordController = {
         })
         .catch(err => next(err));
       })
-      .catch(err => next(err));
-    
-    
+      .catch(err => next(err))  
   },
   punchOut: (req, res, next) => {
     const userId = req.user.id
