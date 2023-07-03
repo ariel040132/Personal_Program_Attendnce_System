@@ -5,10 +5,8 @@
         <div class="section-title text-center">
           <div class="title-text">
             <h2>你的出勤紀錄</h2>
-            <div class="primary-btn mb-3">
-              <a class="btn btn-outline-success" href="/punchin">上班</a>
-              <a class="btn btn-outline-success" href="/punchout">下班</a>
-            </div>
+            {{> clock-in-tabs}}
+            {{> show-now-time}}
           </div>
 
         </div>
@@ -66,7 +64,7 @@
                     </td>
                     <td>
                       <div class="primary-btn">
-                        <a class="btn" href="#" style="color: #000000; background-color:#AFC1D6">Read More</a>
+                        <a class="btn btn-outline-dark" href="#">Read More</a>
                       </div>
                     </td>
                   </tr>
