@@ -72,6 +72,7 @@ const userController = {
       where: { userId }, 
       include: [{ model: User, attributes: ['account', 'name', 'email'] }],
       attributes: ['workTitle', 'date', 'punchInTime', 'punchOutTime', 'isAttendance', 'workHours'],
+      order: [['date', 'DESC']],
     })
       .then((records) => {
         const recordsJSON = records.map(records => records.toJSON())

@@ -6,10 +6,10 @@ const adminController = {
     return attendanceRecord.findAll({
       include: [{ model: User, attributes: ['account', 'name', 'email'] }],
       attributes: ['id', 'workTitle','date', 'punchInTime', 'punchOutTime', 'isAttendance', 'workHours'],
+      order: [['date', 'DESC']],
     })
       .then((records) => {
         const recordsJSON = records.map(record => record.toJSON());
-        console.log(recordsJSON);
         res.render('admin/allrecords', { records: recordsJSON });
       })
       .catch((err) => next(err));
@@ -24,7 +24,7 @@ const adminController = {
       console.log('record is', record);
       return record.update({ isAttendance: !record.isAttendance })
     }).then(() => {
-      req.flash('success_messages', '出席紀錄變更成功')
+      req.flash('success_msg', '出席紀錄變更成功')
       res.redirect('/admin/allrecords')
     })
       .catch(err => next(err))
