@@ -1,5 +1,6 @@
 const { User, attendanceRecord } = require('../models')
 const moment = require('moment');
+const axios = require('axios');
 
 const recordController = {
   ClockInPage: (req, res, next) => {
@@ -9,31 +10,62 @@ const recordController = {
     res.render('clock-out')
   },
   punchIn: (req, res, next) => {
-    const userId = req.user.id
-    const punchInTime = moment().format('HH:mm:ss');
-    const today = moment().subtract(5, 'hours').startOf('day').format('YYYY-MM-DD');
-    const { workTitle, workDetails } = req.body;
-    if (!userId || !punchInTime || !today || !workTitle ) throw new Error('請填寫工作欄位。')
-    return attendanceRecord.findOne({
+  const userId = req.user.id;
+  const punchInTime = moment().format('HH:mm:ss');
+  const today = moment().subtract(5, 'hours').startOf('day').format('YYYY-MM-DD');
+  const { workTitle, workDetails, date } = req.body;
+
+  function checkHoliday(date) {
+    return axios.get(`https://cdn.jsdelivr.net/gh/ruyut/TaiwanCalendar/data/2023.json`)
+      .then(response => {
+        const formattedDate = moment(today).format('YYYYMMDD');
+        const holidays = response.data;
+        const isHoliday = holidays.some((holiday) => holiday.date === formattedDate && holiday.isHoliday);
+        return isHoliday;
+      })
+      .catch(error => {
+        console.error('Error checking holiday:', error);
+        return false; // 若無法取得行事曆資料，預設為非假日
+      });
+  }
+
+  if (!userId || !punchInTime || !today || !workTitle) {
+    throw new Error('請填寫工作欄位。');
+  }
+
+  checkHoliday(date)
+    .then(isHoliday => {
+      if (isHoliday) {
+        throw new Error('今天是假日，無法打卡。');
+      }
+
+      return attendanceRecord.findOne({
         where: {
           userId,
           date: today,
         },
-      }).then((record) => {
-        if (record) throw new Error('今天已經打過上班卡。')
-        return attendanceRecord.create({
-          userId,
-          punchInTime,
-          date: today,
-          workTitle,
-          workDetails,
-        }).then(() => {
-          res.redirect('/')
-        })
-        .catch(err => next(err));
-      })
-      .catch(err => next(err))  
-  },
+      });
+    })
+    .then(record => {
+      if (record) {
+        throw new Error('今天已經打過上班卡。');
+      }
+
+      return attendanceRecord.create({
+        userId,
+        punchInTime,
+        date: today,
+        workTitle,
+        workDetails,
+      });
+    })
+    .then(() => {
+      res.redirect('/');
+    })
+    .catch(err => {
+      next(err);
+    });
+},
   punchOut: (req, res, next) => {
     const userId = req.user.id
     const today = moment().format('YYYY-MM-DD');
