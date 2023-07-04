@@ -36,13 +36,12 @@ const userController = {
         pwdCheck
       })
     }
-
     // 檢查使用者是否已經註冊
     User.findOne({ where: { email: email } })
       .then(user => {
         if (user) {
           errors.push({ message: '這個 Email 已經註冊過了。' })
-          return res.render('signup', {
+          res.render('signup', {
             errors,
             name,
             email,
@@ -50,16 +49,17 @@ const userController = {
             password,
             pwdCheck
           })
-        }
-
-        return bcrypt.hash(req.body.password, 10)
-      })
-      .then(hash => User.create({ name, account, email, password: hash }))
-      .then(() => {
-        req.flash('success_msg', '成功註冊帳號！')
-        res.redirect('/punchin')
-      })
-    .catch(err => next(err))
+        } else {
+          return bcrypt.hash(req.body.password, 10)
+          .then(hash => 
+            User.create({ name, account, email, password: hash })
+          .then(() => {
+            req.flash('success_msg', '成功註冊帳號！')
+            res.redirect('/punchin')
+      }))
+      .catch(err => next(err))
+    }
+  }) 
 },
   logOut: (req, res, next) => {
     req.logout()
