@@ -2,7 +2,9 @@
   <form id="userSettingForm" action="/user/setting" method="PUT">
     <div class="form-icon">
       <span><i class="fa-solid fa-gear"></i></span>
+
     </div>
+    <h3>User Setting</h3>
     <div class="form-group pt-3">
       <label for="inputPassword5" class="form-label">Name</label>
       <input type="text" class="form-control item" id="name" name="name" placeholder="name" value="{{user.name}}"
@@ -27,12 +29,13 @@
     {{!-- <div>class="d-grid gap-2 col-4" --}}
       <div class="">
         <div>
-          <a href="/user/editPwd"><button type="button" class="btn btn-outline-dark">Change
-              Password</button></a>
+          <a href="/user/editPwd"><button type="button" class="btn btn-outline-dark">change
+              password <i class="fa-solid fa-pen-to-square"></i></button></a>
         </div>
 
         <div class="mt-2">
-          <a href="/user/home"><button type="button" class="btn btn-outline-dark">Back</button></a>
+          <a href="/user/home"><button type="button" class="btn btn-outline-dark">
+              Back <i class="fa-solid fa-backward"></i></button></a>
         </div>
 
       </div>
