@@ -6,10 +6,12 @@
     function updateDateTime() {
       const now = new Date();
 
-      const dateString = now.toLocaleDateString();  // 取得當前日期的字串
-      dateElement.textContent = dateString;  // 更新日期顯示
+      const options = { timeZone: 'Asia/Taipei', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
 
-      const timeString = now.toLocaleTimeString();  // 取得當前時間的字串
+      const dateTimeString = now.toLocaleString('en-US', options);  // 取得當前日期與時間的字串
+      const [dateString, timeString] = dateTimeString.split(', ');  // 將日期與時間拆分為字串
+
+      dateElement.textContent = dateString;  // 更新日期顯示
       timeElement.textContent = timeString;  // 更新時間顯示
     }
 

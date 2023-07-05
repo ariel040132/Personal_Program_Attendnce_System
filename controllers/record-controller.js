@@ -1,5 +1,5 @@
 const { User, attendanceRecord } = require('../models')
-const moment = require('moment');
+const moment = require('moment-timezone');
 const axios = require('axios');
 
 const recordController = {
@@ -11,8 +11,8 @@ const recordController = {
   },
   punchIn: (req, res, next) => {
   const userId = req.user.id;
-  const punchInTime = moment().format('HH:mm:ss');
-  const today = moment().subtract(5, 'hours').startOf('day').format('YYYY-MM-DD');
+  const punchInTime = moment().tz('Asia/Taipei').format('HH:mm:ss');
+  const today = moment().tz('Asia/Taipei').startOf('day').format('YYYY-MM-DD');
   const { workTitle, workDetails, date } = req.body;
 
   function checkHoliday(date) {
@@ -68,7 +68,7 @@ const recordController = {
 },
   punchOut: (req, res, next) => {
     const userId = req.user.id
-    const today = moment().format('YYYY-MM-DD');
+    const today = moment().tz('Asia/Taipei').startOf('day').format('YYYY-MM-DD');
     attendanceRecord.findOne({
         where: {
           userId,
@@ -77,12 +77,9 @@ const recordController = {
       }).then((record) => {
         // 查詢當日的上班卡紀錄
         if (!record) throw new Error('今天尚未打過上班卡')
-        // 檢查是否已經打過下班卡
-        // if (record.punch_out_time) {
-        //   return res.status(400).json({ message: '今天已經打過下班卡' });
-        // }
+
         // 設定下班時間
-         record.punchOutTime = moment().format('HH:mm:ss');
+         record.punchOutTime = moment().tz('Asia/Taipei').format('HH:mm:ss');
 
         // 計算工作時數
         const punchIn = moment(record.punchInTime, 'HH:mm:ss');
