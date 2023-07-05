@@ -9,6 +9,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    queryInterface.renameColumn('attendanceRecords', 'date', 'date');
+    return queryInterface.renameColumn('attendanceRecords', 'date', 'date');
   }
 };
