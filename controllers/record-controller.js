@@ -60,6 +60,7 @@ const recordController = {
       });
     })
     .then(() => {
+      req.flash('success_msg', '上班打卡成功')
       res.redirect('/');
     })
     .catch(err => {
@@ -89,8 +90,10 @@ const recordController = {
         // 設定出勤狀態
         record.isAttendance = workHours >= 8 ? 1 : 0;
         // 儲存更新後的出勤紀錄
-        record.save().then(()=>{
+        record.save().then(() => {
+          req.flash('success_msg', '下班打卡成功')
           return res.redirect('/');
+
         }).catch(err => next(err))
       }).catch(err => next(err))
   }
