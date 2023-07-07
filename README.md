@@ -1,6 +1,3 @@
-![](https://hackmd.io/_uploads/HyCZGdHF3.png)
-![](https://hackmd.io/_uploads/H1NHfdSKn.png)
-
 # 個人專案－公司出勤打卡系統
 
 ![](https://hackmd.io/_uploads/HyCZGdHF3.png)
