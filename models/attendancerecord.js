@@ -15,9 +15,8 @@ module.exports = (sequelize, DataTypes) => {
   };
   attendanceRecord.init({
     userId: DataTypes.INTEGER,
-    punchInTime: DataTypes.TIME,
-    punchOutTime: DataTypes.TIME,
-    date: DataTypes.DATEONLY,
+    punchInTime: DataTypes.DATE,
+    punchOutTime: DataTypes.DATE,
     workTitle: DataTypes.STRING,
     workDetails: DataTypes.TEXT,
     isAttendance: DataTypes.BOOLEAN,
