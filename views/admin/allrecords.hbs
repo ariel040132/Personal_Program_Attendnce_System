@@ -22,9 +22,10 @@
               <table class="table">
                 <thead>
                   <tr>
-                    <th class="text-center" scope="col">日期</th>
-                    <th scope="col">員工</th>
+                    <th class="text-center" scope="col">打卡者</th>
                     <th class="text-center" scope="col">工作內容</th>
+                    <th class="text-center" scope="col">上班時間</th>
+                    <th class="text-center" scope="col">下班時間</th>
                     <th scope="col">出勤狀態</th>
                     <th class="text-center" scope="col">修改出勤狀態</th>
                   </tr>
@@ -35,31 +36,27 @@
                   <tr class="inner-box">
                     <th scope="row">
                       <div class="event-date">
-                        <p>{{this.date}}</p>
+                        <p>{{this.User.name}}</p>
                       </div>
                     </th>
-                    <td>
-                      <div class="event-img">
-                        <p>{{this.User.account}}</p>
-                      </div>
-                    </td>
+
                     <td>
                       <div class="event-wrap">
-                        <h3><a href="#">{{this.workTitle}}</a></h3>
-                        <div class="meta">
-                          <div class="organizers">
-                            <span><i class="fa-solid fa-building"></i> {{this.punchInTime}}</span>
-                          </div>
-                          <div class="categories">
-                            <span><i class="fa-solid fa-home"></i> {{this.punchOutTime}}</span>
-                          </div>
-                          <div class="time">
-                            <span>Work Hours: {{this.workHours}}</span>
-                          </div>
-                        </div>
+                        <h3><a href="#" style="text-decoration: none;">{{this.workTitle}}</a></h3>
                       </div>
                     </td>
                     <td>
+                      <div class="primary-btn">
+                        <p>{{this.punchInTime}}</p>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="primary-btn">
+                        <p>{{this.punchOutTime}}</p>
+                      </div>
+                    </td>
+                    <td>
+
                       <div class="r-no text-center">
                         {{#if this.isAttendance}}
                         <span><i class="fa-solid fa-check" style="color: rgb(10, 190, 10);"></i></span>

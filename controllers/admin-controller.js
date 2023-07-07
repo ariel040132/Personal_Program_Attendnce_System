@@ -9,10 +9,21 @@ const adminController = {
       order: [['punchInTime', 'DESC']],
     })
       .then((records) => {
-        const recordsJSON = records.map(record => record.toJSON());
-        res.render('admin/allrecords', { records: recordsJSON });
-      })
-      .catch((err) => next(err));
+      const recordsJSON = records.map(record => {
+        const user = record.User.toJSON();
+        return {
+        id: record.id,
+        workTitle: record.workTitle,
+        punchInTime: moment(record.punchInTime).format('YYYY-MM-DD HH:mm:ss'),
+        punchOutTime: moment(record.punchOutTime).format('YYYY-MM-DD HH:mm:ss'),
+        isAttendance: record.isAttendance,
+        workHours: record.workHours,
+        User: user
+        }});
+      console.log(recordsJSON);
+      res.render('admin/allrecords', { records: recordsJSON });
+    })
+    .catch((err) => next(err));
   },
   patchRecords: (req, res, next) => {
     return attendanceRecord.findByPk(req.params.id).then(record => {

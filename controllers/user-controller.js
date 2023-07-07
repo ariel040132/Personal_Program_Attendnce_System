@@ -67,19 +67,29 @@ const userController = {
     res.redirect('/login')
   },
   getHomePage: (req, res, next) => {
-    const userId = req.user.id;
-    return attendanceRecord.findAll({
-      where: { userId }, 
-      include: [{ model: User, attributes: ['account', 'name', 'email'] }],
-      attributes: ['workTitle', 'punchInTime', 'punchOutTime', 'isAttendance', 'workHours'],
-      order: [['punchInTime', 'DESC']],
+  const userId = req.user.id;
+  return attendanceRecord.findAll({
+    where: { userId }, 
+    include: [{ model: User, attributes: ['account', 'name', 'email'] }],
+    attributes: ['workTitle', 'punchInTime', 'punchOutTime', 'isAttendance', 'workHours'],
+    order: [['punchInTime', 'DESC']],
+  })
+    .then((records) => {
+      const recordsJSON = records.map(record => {
+        const user = record.User.toJSON();
+        return {
+        workTitle: record.workTitle,
+        punchInTime: moment(record.punchInTime).format('YYYY-MM-DD HH:mm:ss'),
+        punchOutTime: moment(record.punchOutTime).format('YYYY-MM-DD HH:mm:ss'),
+        isAttendance: record.isAttendance,
+        workHours: record.workHours,
+        User: user
+        }});
+      console.log(recordsJSON);
+      res.render('home', { records: recordsJSON });
     })
-      .then((records) => {
-        const recordsJSON = records.map(records => records.toJSON())
-        res.render('home', { records: recordsJSON });
-      })
-      .catch((err) => next(err));
-  },
+    .catch((err) => next(err));
+},
   userSettingPage: (req, res, next) => {
     const userId = req.user.id;
     User.findByPk(userId)

@@ -108,11 +108,11 @@ const recordController = {
         // 儲存更新後的出勤紀錄
         return record.save() 
       })
-        .then(() => {
-          req.flash('success_msg', '下班打卡成功')
-          return res.redirect('/');
-
-      }).catch(err => next(err))
+      .then(() => {
+        req.flash('success_msg', '下班打卡成功')
+        res.redirect('/');
+      })
+      .catch(err => next(err))
   }
 }
 
