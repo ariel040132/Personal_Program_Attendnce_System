@@ -72,5 +72,3 @@
 - passport-local 1.0.0
 - sequelize 5.21.13
 - sequelize-cli 5.5.1
-
--
