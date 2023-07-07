@@ -85,7 +85,6 @@ const userController = {
         workHours: record.workHours,
         User: user
         }});
-      console.log(recordsJSON);
       res.render('home', { records: recordsJSON });
     })
     .catch((err) => next(err));
