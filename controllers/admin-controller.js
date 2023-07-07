@@ -20,7 +20,6 @@ const adminController = {
         workHours: record.workHours,
         User: user
         }});
-      console.log(recordsJSON);
       res.render('admin/allrecords', { records: recordsJSON });
     })
     .catch((err) => next(err));

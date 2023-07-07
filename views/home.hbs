@@ -23,7 +23,7 @@
                 <thead>
                   <tr>
                     <th class="text-center" scope="col">打卡者</th>
-                    <th scope="col">工作內容</th>
+                    <th class="text-center" scope="col">工作內容</th>
                     <th class="text-center" scope="col">上班時間</th>
                     <th class="text-center" scope="col">下班時間</th>
                     <th class="text-center" scope="col">出勤狀態</th>
@@ -43,7 +43,11 @@
                     <td>
                       <div class="event-wrap">
                         <h3><a href="#" style="text-decoration: none;">{{this.workTitle}}</a></h3>
+                        <div class="time">
+                          <span>work hours: {{this.workHours}}</span>
+                        </div>
                       </div>
+
                     </td>
                     <td>
                       <div class="primary-btn">
