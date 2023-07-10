@@ -27,7 +27,7 @@
                     <th class="text-center" scope="col">上班時間</th>
                     <th class="text-center" scope="col">下班時間</th>
                     <th scope="col">出勤狀態</th>
-                    <th class="text-center" scope="col">修改出勤狀態</th>
+                    <th class="text-center" scope="col">清除缺勤狀態</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -70,16 +70,12 @@
                     </td>
                     <td>
                       {{#if this.isAttendance}}
-                      <form action="/admin/attendances/{{this.id}}?_method=PATCH" method="POST"
-                        style="display: inline;">
-                        <input type="hidden" name="isAttendance" value="false" />
-                        <button type="submit" class="btn link-danger">Set as Absent</button>
-                      </form>
+                      <p>已出勤</p>
                       {{else}}
                       <form action="/admin/attendances/{{this.id}}?_method=PATCH" method="POST"
                         style="display: inline;">
                         <input type="hidden" name="isAttendance" value="true" />
-                        <button type="submit" class="btn link-success">Set as Attendance</button>
+                        <button type="submit" class="btn link-success">清除缺勤狀態</button>
                       </form>
                       {{/if}}
                     </td>

@@ -29,7 +29,7 @@ const adminController = {
       if (!record) throw new Error('該筆紀錄不存在。')
       return record.update({ isAttendance: !record.isAttendance })
     }).then(() => {
-      req.flash('success_msg', '出席紀錄變更成功')
+      req.flash('success_msg', '成功清除缺勤狀態')
       res.redirect('/admin/allrecords')
     })
       .catch(err => next(err))

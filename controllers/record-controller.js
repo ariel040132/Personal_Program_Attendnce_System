@@ -92,7 +92,8 @@ const recordController = {
             ]
           }
         },
-      }).then((record) => {
+      })
+      .then((record) => {
         // 查詢當日的上班卡紀錄
         if (!record) throw new Error('今天尚未打過上班卡')
 
@@ -106,11 +107,12 @@ const recordController = {
         // 設定出勤狀態
         record.isAttendance = workHours >= 8 ? 1 : 0;
         // 儲存更新後的出勤紀錄
-        return record.save() 
-      })
-      .then(() => {
-        req.flash('success_msg', '下班打卡成功')
-        res.redirect('/');
+        return record.save()
+        .then(() => {
+          req.flash('success_msg', '下班打卡成功')
+          res.redirect('/');
+        })
+        .catch(err => next(err))
       })
       .catch(err => next(err))
   }
