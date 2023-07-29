@@ -19,15 +19,16 @@
     <button class="btn mt-3">Login</button>
   </form>
   {{!-- ! google登入 --}}
+  <div class="google-auth align-items-center">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <div id="g_id_onload" data-client_id="235655779647-s5ng0h3l63sssa41v21vckavqkqjrigq.apps.googleusercontent.com"
+      data-login_uri="http://localhost:3000/auth/google" data-auto_prompt="false">
+    </div>
+    <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline" data-text="sign_in_with"
+      data-shape="rectangular" data-logo_alignment="left">
+    </div>
+  </div>
 
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
-  {{!-- <a href="http://localhost:3000/auth/google"><button>google login</button></a> --}}
-  <div id="g_id_onload" data-client_id="235655779647-s5ng0h3l63sssa41v21vckavqkqjrigq.apps.googleusercontent.com"
-    data-login_uri="http://localhost:3000/auth/google" data-auto_prompt="false">
-  </div>
-  <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline" data-text="sign_in_with"
-    data-shape="rectangular" data-logo_alignment="left">
-  </div>
 
   {{!-- ! google登入 --}}
   <div class="text-center fs-6">

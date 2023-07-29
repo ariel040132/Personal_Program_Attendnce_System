@@ -11,8 +11,6 @@ passport.use(new GoogleStrategy({
 },
 async (accessToken, refreshToken, profile, done) => {
   const email = profile.emails[0].value; // 取得 Google 帳號的 email
-  const googleId = profile.id; // 取得 Google 帳號的 id
-
   try {
     let user = await User.findOne({
       where: { email: email }
