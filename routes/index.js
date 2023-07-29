@@ -6,11 +6,16 @@ const passport = require('../config/passport')
 const { authenticated } = require('../middleware/auth')
 const { generalErrorHandler } = require('../middleware/error-handler')
 const admin = require('../routes/modules/admin')
+const authGoogle = require('./modules/auth')
 
 router.use('/admin', admin)
+router.use('/auth', authGoogle)
 
 //! 使用者登入、註冊、登出
 router.get('/login', userController.logIn)
+  //* google 登入
+// router.get('/auth/google/callback', 
+//   passport.authenticate('google', { failureRedirect: '/login'}), userController.signIn)
 router.post('/login', passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }), userController.signIn)
 router.post('/register', userController.postSignUp)
 router.get('/register', userController.signUpPage)

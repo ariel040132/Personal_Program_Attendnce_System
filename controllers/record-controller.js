@@ -98,7 +98,7 @@ const recordController = {
         if (!record) throw new Error('今天尚未打過上班卡')
 
         // 設定下班時間
-         record.punchOutTime = punchOutTime
+        record.punchOutTime = punchOutTime
         // 計算工作時數
         const punchIn = moment(record.punchInTime, 'YYYY:MM:DD HH:mm:ss');
         const punchOut = moment(record.punchOutTime, 'YYYY:MM:DD HH:mm:ss');

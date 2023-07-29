@@ -7,6 +7,11 @@ const userController = {
     res.render('login')
   },
   signIn: (req, res) => {
+    // const { clientId, credential, select_by } = req.body;
+    // console.log('ClientId:', clientId);
+    // console.log('Credential:', credential);
+    // console.log('Select By:', select_by);
+
     req.flash('success_msg', '成功登入！')
     res.redirect('/user/home')
   },
@@ -17,7 +22,7 @@ const userController = {
     // 取得註冊表單參數
     const { name, email, account, password, pwdCheck } = req.body
     const errors = []
-
+    
     if (!name || !account || !email || !password || !pwdCheck) {
       errors.push({ message: '所有欄位都是必填。' })
     }
