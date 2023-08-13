@@ -1,0 +1,39 @@
+<h1 class="mb-1 restaurant-show-title">{{record.workTitle}}</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-10 mx-auto">
+
+      <p class="mb-1">
+        <span class="text-secondary">
+          上班：
+        </span>
+        {{record.punchInTime}}
+      </p>
+      <p class="mb-1">
+        <span class="text-secondary">
+          下班：
+        </span>
+        {{record.punchOutTime}}
+      </p>
+
+      <p class="mb-1">
+        <span class="text-secondary">
+          時數：
+        </span>
+        {{record.workHours}}
+      </p>
+
+      <p class="mb-1">
+        <span class="text-secondary">
+          出勤狀態：
+        </span>
+        {{record.isAttendance}}
+      </p>
+
+      <p class="mb-1">
+        詳細記錄：{{record.workDetails}}
+      </p>
+
+    </div>
+  </div>
+</div>

@@ -7,7 +7,6 @@ const port = process.env.PORT || 3000;
 const routes = require("./routes");
 const methodOverride = require("method-override");
 const session = require("express-session");
-const SESSION_SECRET = 'secret'
 const passport = require('./config/passport')
 const flash = require("connect-flash");
 const { getUser } = require('./helpers/auth-helpers')
@@ -24,7 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(
   session({
-    secret: SESSION_SECRET,
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
   })

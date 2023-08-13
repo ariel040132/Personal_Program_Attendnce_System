@@ -115,7 +115,22 @@ const recordController = {
         .catch(err => next(err))
       })
       .catch(err => next(err))
-  }
+  },
+  showRecord: (req, res, next) => {
+    const id = req.params.id
+    return attendanceRecord.findByPk(id, {
+        include: [{ model: User, attributes: ['account', 'name', 'email'] }],
+        attributes: ['id', 'workTitle', 'workDetails', 'punchInTime', 'punchOutTime', 'isAttendance', 'workHours']
+    })
+    .then(record => {
+      record = record.toJSON()
+      record.punchInTime = moment(record.punchInTime).format('YYYY/MM/DD hh:mm:ss');
+      record.punchOutTime = moment(record.punchOutTime).format('YYYY/MM/DD hh:mm:ss');
+      console.log(record);
+      res.render('show', { record });
+    });
+}
+
 }
 
 module.exports = recordController

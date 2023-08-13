@@ -76,14 +76,16 @@ const userController = {
   return attendanceRecord.findAll({
     where: { userId }, 
     include: [{ model: User, attributes: ['account', 'name', 'email'] }],
-    attributes: ['workTitle', 'punchInTime', 'punchOutTime', 'isAttendance', 'workHours'],
+    attributes: ['id', 'workTitle', 'workDetails', 'punchInTime', 'punchOutTime', 'isAttendance', 'workHours'],
     order: [['punchInTime', 'DESC']],
   })
     .then((records) => {
       const recordsJSON = records.map(record => {
         const user = record.User.toJSON();
         return {
+        id: record.id,
         workTitle: record.workTitle,
+        workDetail: record.workDetails,
         punchInTime: moment(record.punchInTime).format('YYYY-MM-DD HH:mm:ss'),
         punchOutTime: moment(record.punchOutTime).format('YYYY-MM-DD HH:mm:ss'),
         isAttendance: record.isAttendance,

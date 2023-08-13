@@ -22,6 +22,7 @@ router.get('/register', userController.signUpPage)
 router.get('/logout', userController.logOut)
 
 //! 打卡功能
+router.get('/record/:id', authenticated, recordController.showRecord)
 router.post('/punchin', authenticated, recordController.punchIn)
 router.put('/punchout', authenticated, recordController.punchOut)
 router.get('/punchout', authenticated, recordController.ClockOutPage)
