@@ -1,5 +1,6 @@
 const { User, attendanceRecord } = require('../models')
 const bcrypt = require('bcryptjs')
+const { body, validationResult } = require('express-validator');
 const moment = require('moment');
 
 const userController = {
@@ -18,54 +19,67 @@ const userController = {
   signUpPage: (req, res, next) => {
     res.render('signup')
   },
-  postSignUp: (req, res, next) => {
+postSignUp: [
+  // 使用 express-validator 進行表單驗證
+  body('name').notEmpty().withMessage('名稱不能為空'),
+  body('email').isEmail().withMessage('請輸入有效的電子郵件地址'),
+  body('account').notEmpty().withMessage('帳號不能為空'),
+  body('password').notEmpty().withMessage('密碼不能為空'),
+  body('pwdCheck').custom((value, { req }) => {
+    if (value !== req.body.password) {
+      throw new Error('密碼與確認密碼不相符');
+    }
+    return true;
+  }),
+
+  (req, res, next) => {
     // 取得註冊表單參數
-    const { name, email, account, password, pwdCheck } = req.body
-    const errors = []
-    
-    if (!name || !account || !email || !password || !pwdCheck) {
-      errors.push({ message: '所有欄位都是必填。' })
-    }
+    const errors = validationResult(req);
 
-    if (password !== pwdCheck) {
-      errors.push({ message: '密碼與確認密碼不相符！' })
-    }
-
-    if (errors.length) {
+    if (!errors.isEmpty()) {
+      // 有錯誤時重新渲染註冊頁面，並顯示錯誤訊息
       return res.render('signup', {
-        errors,
-        name,
-        account,
-        email,
-        password,
-        pwdCheck
-      })
+        errors: errors.array(),
+        name: req.body.name,
+        account: req.body.account,
+        email: req.body.email,
+        password: req.body.password,
+        pwdCheck: req.body.pwdCheck,
+      });
     }
+    
     // 檢查使用者是否已經註冊
-    User.findOne({ where: { email: email } })
+    User.findOne({ where: { email: req.body.email } })
       .then(user => {
         if (user) {
-          errors.push({ message: '這個 Email 已經註冊過了。' })
-          res.render('signup', {
+          const errors = [{ message: '這個 Email 已經註冊過了。' }];
+          return res.render('signup', {
             errors,
-            name,
-            email,
-            account,
-            password,
-            pwdCheck
-          })
+            name: req.body.name,
+            account: req.body.account,
+            email: req.body.email,
+            password: req.body.password,
+            pwdCheck: req.body.pwdCheck,
+          });
         } else {
           return bcrypt.hash(req.body.password, 10)
-          .then(hash => 
-            User.create({ name, account, email, password: hash })
-          .then(() => {
-            req.flash('success_msg', '成功註冊帳號！')
-            res.redirect('/punchin')
-      }))
-      .catch(err => next(err))
-    }
-  }) 
-},
+            .then(hash => User.create({
+              name: req.body.name,
+              account: req.body.account,
+              email: req.body.email,
+              password: hash
+            }))
+            .then(() => {
+              req.flash('success_msg', '成功註冊帳號！');
+              res.redirect('/punchin');
+            })
+            .catch(err => next(err));
+        }
+      })
+      .catch(err => next(err));
+  }
+]
+,
   logOut: (req, res, next) => {
     req.logout()
     req.flash('success_msg', '你已經成功登出。')
@@ -112,6 +126,7 @@ const userController = {
   editPwd: (req, res, next) => {
     const userId = req.user.id;
     const { password, checkpwd } = req.body;
+    if (!password || !checkpwd) throw new Error("請輸入必填欄位")
     if (password !== checkpwd) throw new Error("輸入的密碼不相符");
     return bcrypt.hash(req.body.password, 10)
       .then(hash => {
