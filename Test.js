@@ -16,6 +16,7 @@ router.post('/register', [
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
+    console.log(errors);
     // 有錯誤時重新渲染註冊頁面，並顯示錯誤訊息
     return res.render('signup', {
       errors: errors.array(),

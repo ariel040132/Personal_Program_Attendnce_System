@@ -34,12 +34,13 @@ postSignUp: [
 
   (req, res, next) => {
     // 取得註冊表單參數
-    const errors = validationResult(req);
+    const errorsMessages = validationResult(req);
 
-    if (!errors.isEmpty()) {
+    if (!errorsMessages.isEmpty()) {
+      const errors = errorsMessages.array().map(error => ({ message: `${error.msg}`} ));
       // 有錯誤時重新渲染註冊頁面，並顯示錯誤訊息
       return res.render('signup', {
-        errors: errors.array(),
+        errors,
         name: req.body.name,
         account: req.body.account,
         email: req.body.email,
