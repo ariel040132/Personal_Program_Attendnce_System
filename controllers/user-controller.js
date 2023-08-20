@@ -22,7 +22,7 @@ const userController = {
 postSignUp: [
   // 使用 express-validator 進行表單驗證
   body('name').notEmpty().withMessage('名稱不能為空'),
-  body('email').isEmail().withMessage('請輸入有效的電子郵件地址'),
+  body('email').isEmail().normalizeEmail().withMessage('請輸入有效的電子郵件地址'),
   body('account').notEmpty().withMessage('帳號不能為空'),
   body('password').notEmpty().withMessage('密碼不能為空'),
   body('pwdCheck').custom((value, { req }) => {
